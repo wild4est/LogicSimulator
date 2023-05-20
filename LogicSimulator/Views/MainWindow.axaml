@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LogicSimulator.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
+		Width="1400" Height="800"
+        x:Class="LogicSimulator.Views.MainWindow"
+        Icon="/Assets/redstone_logo.ico"
+        Title="LogicSimulator">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Window.Styles>
+		<Style Selector="ListBoxItem">
+			<Setter Property="Padding" Value="0"/>
+		</Style>
+		<Style Selector="Border.b">
+			<Setter Property="BorderThickness" Value="3"/>
+			<Setter Property="BorderBrush" Value="#8B0000"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="Margin" Value="-5"/>
+			<Setter Property="Padding" Value="4"/>
+			<Setter Property="MinHeight" Value="0"/>
+		</Style>
+		<Style Selector="ListBox.cl">
+			<Setter Property="Background" Value="#fce8e8"/>
+		</Style>
+
+	</Window.Styles>
+
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="Файл">
+				<MenuItem Header="Создать" Command="{Binding Comm}" CommandParameter="Create"/>
+				<MenuItem Header="Открыть проект" Command="{Binding Comm}" CommandParameter="Open"/>
+				<MenuItem Header="Сохранить текущую схему" Command="{Binding Comm}" CommandParameter="Save"/>
+				<MenuItem Header="Выйти" Command="{Binding Comm}" CommandParameter="Exit"/>
+			</MenuItem>
+		</Menu>
+		
+		<Grid ColumnDefinitions="*,5*">
+			<Border Classes="b">
+			<ListBox Classes="cl" Items="{Binding ItemTypes}" SelectedIndex="{Binding SelectedItem}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<ContentControl Content="{Binding}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			</Border>
+			<Panel Grid.Column="1">
+				<TextBlock Text="{Binding Logg}" Background="White"/>
+				<Canvas Tag="Scene" Name="Canvas" Background="#0000"/>
+			</Panel>
+
+		</Grid>
+		
+	</DockPanel>
+</Window>
